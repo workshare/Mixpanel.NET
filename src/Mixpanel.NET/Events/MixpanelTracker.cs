@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Mixpanel.NET.Events
 {
-    public class MixpanelTracker : MixpanelClientBase, IEventTracker
+	public class MixpanelTracker : MixpanelClientBase, IEventTracker
     {
         private readonly TrackerOptions _options;
 
@@ -53,7 +53,7 @@ namespace Mixpanel.NET.Events
             return contents == "1";
         }
 
-        protected void StandardiseMixpanelTime(Dictionary<string, object> propertyBag) {
+        protected virtual void StandardiseMixpanelTime(Dictionary<string, object> propertyBag) {
           propertyBag["time"] = propertyBag.Where(x => x.Key.ToLower() == "time")
                                  .Select(x => x.Value)
                                  .FirstOrDefault() ?? DateTime.UtcNow;
