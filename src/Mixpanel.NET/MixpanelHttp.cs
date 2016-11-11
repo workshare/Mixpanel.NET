@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -13,9 +14,30 @@ namespace Mixpanel.NET
     string Post(string uri, string body);
   }
 
+  public interface IHttpWebRequestDecorator {
+    void Decorate(HttpWebRequest request);
+  }
+
   public class MixpanelHttp : IMixpanelHttp {
+    private IEnumerable<IHttpWebRequestDecorator> _decorators;
+
+    public MixpanelHttp()
+      : this(null) { 
+    }
+    
+    public MixpanelHttp(IEnumerable<IHttpWebRequestDecorator> decorators) { 
+      if( decorators == null) {
+        decorators = new List<IHttpWebRequestDecorator>();
+      } else { 
+        _decorators = decorators;
+      }
+    }
+
     public string Get(string uri, string query) {
       var request = WebRequest.Create(uri + "?" + query);
+      foreach(var decorator in _decorators) {
+        decorator.Decorate((HttpWebRequest)request);
+      }
       var response = request.GetResponse();
       var responseStream = response.GetResponseStream();
       return responseStream == null 
@@ -27,6 +49,9 @@ namespace Mixpanel.NET
       var request = WebRequest.Create(uri);
       request.Method = "POST";
       request.ContentType = "application/x-www-form-urlencoded";
+      foreach(var decorator in _decorators) {
+        decorator.Decorate((HttpWebRequest)request);
+      }
       var bodyBytes = Encoding.UTF8.GetBytes(body);
       request.GetRequestStream().Write(bodyBytes, 0, bodyBytes.Length);
       var response = request.GetResponse();
