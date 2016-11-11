@@ -16,3 +16,7 @@ _ReSharper.*
 release/
 lib/
 *.nupkg
+src/GlobalAssemblyInfo.cs
+src/Mixpanel.NET/packages
+src/Mixpanel.NET/packages
+src/Mixpanel.NET/packages

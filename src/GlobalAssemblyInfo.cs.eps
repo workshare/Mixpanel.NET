@@ -1,0 +1,15 @@
+<% $year = [DateTime]::Now.Year %>
+using System.Reflection;
+
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Workshare")]
+[assembly: AssemblyProduct("Mixpanel.NET")]
+[assembly: AssemblyCopyright("Copyright (C) <%= $year %> Workshare")]
+[assembly: AssemblyTrademark("")]
+// Assembly version used in project references
+[assembly: AssemblyVersion("<%= $productVersion %>")]
+// Assembly version used by installers. These should differ between builds.
+// Keep this as 0.0.0.0. Build process will modify this to major.minor.reallyminor.buildnumber
+[assembly: AssemblyFileVersion("<%= $version %>")]
+// Assembly version referred to by customers. Affects the config location.
+[assembly: AssemblyInformationalVersion("<%= $productVersion %>")]
