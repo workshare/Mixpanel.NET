@@ -30,14 +30,8 @@ namespace Mixpanel.NET.Events
             var propertyBag = new Dictionary<string, object>(properties);
             // Standardize token and time values for Mixpanel
             propertyBag["token"] = token;
-            if (_options.SetEventTime)
-            {
-                propertyBag["time"] =
-                    propertyBag.Where(x => x.Key.ToLower() == "time")
-                    .Select(x => x.Value)
-                    .FirstOrDefault() ?? DateTime.UtcNow;
-
-                propertyBag.Remove("Time");
+            if (_options.SetEventTime) {
+              StandardiseMixpanelTime(propertyBag);
             }
 
             var data =
@@ -57,6 +51,14 @@ namespace Mixpanel.NET.Events
               : http.Post(Resources.Track(_options.ProxyUrl), values);
 
             return contents == "1";
+        }
+
+        protected void StandardiseMixpanelTime(Dictionary<string, object> propertyBag) {
+          propertyBag["time"] = propertyBag.Where(x => x.Key.ToLower() == "time")
+                                 .Select(x => x.Value)
+                                 .FirstOrDefault() ?? DateTime.UtcNow;
+
+          propertyBag.Remove("Time");
         }
 
         public bool Track(MixpanelEvent @event)
