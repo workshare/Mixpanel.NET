@@ -29,6 +29,7 @@ namespace Workshare.Mixpanel.NET
 		{
 			var decoratorFactory = new RequestStrategyFactory
 			{
+				Timeout = options.Timeout,
 				Credentials = options.Credentials,
 				Proxy = options.Proxy,
 				UserAgent = options.UserAgent
@@ -50,29 +51,38 @@ namespace Workshare.Mixpanel.NET
 
 		public void SendEvent(string eventName, IDictionary<string, object> properties)
 		{
-			var eventProperties = new Dictionary<string, object>(_defaultPropertiesProvider.Properties);
 
-			foreach (var property in properties)
+			try
 			{
-				eventProperties[property.Key] = property.Value;
+				var eventProperties = new Dictionary<string, object>(_defaultPropertiesProvider.Properties);
+
+				foreach (var property in properties)
+				{
+					eventProperties[property.Key] = property.Value;
+				}
+
+				_tracker.Track(eventName, eventProperties);
 			}
-
-			Task.Run(() =>
+			catch (Exception ex)
 			{
-				try
-				{
-					var localEventName = eventName;
-					var localProperties = eventProperties;
-					_tracker.Track(localEventName, localProperties);
-				}
-				catch (Exception ex)
-				{
 #if DEBUG
-					System.Diagnostics.Trace.WriteLine("Caught mixpanel exception");
-					System.Diagnostics.Trace.WriteLine(ex.ToString());
+				System.Diagnostics.Trace.WriteLine("Caught mixpanel exception");
+				System.Diagnostics.Trace.WriteLine(ex.ToString());
 #endif
-				}
-			}).ConfigureAwait(false);
+
+			}
 		}
+
+		public Task SendEventAsync(string eventName, IDictionary<string, object> properties)
+		{
+			return Task.Run(() =>
+			{
+				var localEventName = eventName;
+				var localProperties = properties;
+
+				SendEvent(localEventName, localProperties);
+			});
+		}
+
 	}
 }

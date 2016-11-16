@@ -10,6 +10,7 @@ namespace Workshare.Mixpanel.NET
 {
 	internal class RequestStrategyFactory
 	{
+		public int? Timeout { get; set; }
 		public string UserAgent { get; set; }
 		public ICredentials Credentials { get; set; }
 		public IWebProxy Proxy { get; set; }
@@ -26,6 +27,11 @@ namespace Workshare.Mixpanel.NET
 			if (Proxy != null)
 			{
 				decorators.Add(new ProxyStrategy(Proxy, Credentials));
+			}
+
+			if (Timeout != null)
+			{
+				decorators.Add(new TimeoutStrategy(Timeout.Value));
 			}
 
 			return decorators;

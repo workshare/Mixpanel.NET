@@ -9,6 +9,7 @@ namespace Workshare.Mixpanel.NET
 {
 	public interface IMixpanelOptions
 	{
+		int? Timeout { get; set; }
 		string Url { get; }
 		string Token { get; }
 		string UserAgent { get; }
@@ -18,6 +19,7 @@ namespace Workshare.Mixpanel.NET
 
 	public class MixpanelOptions : IMixpanelOptions
 	{
+		public int? Timeout { get; set; }
 		public string Url { get; set; }
 		public string Token { get; set; }
 		public string UserAgent { get; set; }

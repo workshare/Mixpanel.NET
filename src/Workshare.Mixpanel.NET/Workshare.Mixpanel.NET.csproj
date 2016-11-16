@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyStrategy.cs" />
     <Compile Include="MixpanelService.cs" />
+    <Compile Include="TimeoutStrategy.cs" />
     <Compile Include="UserAgentStrategy.cs" />
     <Compile Include="WsMixpanelTracker.cs" />
   </ItemGroup>
