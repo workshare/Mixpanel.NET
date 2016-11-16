@@ -135,7 +135,7 @@ Task Update-Version {
 	sc $dir_common\GlobalAssemblyInfo.cs $text
 }
 
-Task Compile-Source {
+Task Compile-Source -Depends Get-Dependencies {
 	Build-Project $solution -Platform "Any CPU" -Configuration $config
 }
 
@@ -143,11 +143,12 @@ Task Compile-Source {
 Task Compile-Installers `
 	-Depends Compile `
 {	
-    $dir_output_absolute = resolve-path $dir_output
+	mkdir $dir_output -erroraction SilentlyContinue | Out-Null
+	$dir_output_absolute = resolve-path $dir_output
 	pushd .
-	cd "$dir_source\Mixpanel.NET"
+	cd "$dir_source\Workshare.Mixpanel.NET"
 	Exec {
-		&nuget pack Mixpanel.NET.csproj -includereferencedprojects -OutputDirectory $dir_output_absolute -Properties Configuration=$config -symbols
+		&nuget pack Workshare.Mixpanel.NET.csproj -includereferencedprojects -OutputDirectory $dir_output_absolute -Properties Configuration=$config -symbols
 	}
 	popd
 }

@@ -14,20 +14,20 @@ namespace Mixpanel.NET
     string Post(string uri, string body);
   }
 
-  public interface IHttpWebRequestDecorator {
+  public interface IHttpWebRequestStrategy {
     void Decorate(HttpWebRequest request);
   }
 
   public class MixpanelHttp : IMixpanelHttp {
-    private IEnumerable<IHttpWebRequestDecorator> _decorators;
+    private IEnumerable<IHttpWebRequestStrategy> _decorators;
 
     public MixpanelHttp()
       : this(null) { 
     }
     
-    public MixpanelHttp(IEnumerable<IHttpWebRequestDecorator> decorators) { 
+    public MixpanelHttp(IEnumerable<IHttpWebRequestStrategy> decorators) { 
       if( decorators == null) {
-        decorators = new List<IHttpWebRequestDecorator>();
+        decorators = new List<IHttpWebRequestStrategy>();
       } else { 
         _decorators = decorators;
       }

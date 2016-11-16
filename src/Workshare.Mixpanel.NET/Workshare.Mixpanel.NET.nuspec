@@ -14,6 +14,6 @@
     <tags></tags>
   </metadata>
     <files>
-      <file target="lib\net45" src="bin\$configuration$\*.dll"/>
+      <file target="lib\net452" src="bin\$configuration$\*.dll"/>
     </files>
 </package>
