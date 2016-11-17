@@ -49,6 +49,11 @@ namespace Workshare.Mixpanel.NET
 			SendEvent(eventName, new Dictionary<string, object>());
 		}
 
+		public Task SendEventAsync(string eventName)
+		{
+			return SendEventAsync(eventName, new Dictionary<string, object>());
+		}
+
 		public void SendEvent(string eventName, IDictionary<string, object> properties)
 		{
 
