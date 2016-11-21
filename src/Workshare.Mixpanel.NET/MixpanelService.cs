@@ -27,6 +27,11 @@ namespace Workshare.Mixpanel.NET
 
 		private static IEventTracker GetTracker(IMixpanelOptions options)
 		{
+			if(!options.Enabled)
+			{
+				return new NullEventTracker();
+			}
+
 			var decoratorFactory = new RequestStrategyFactory
 			{
 				Timeout = options.Timeout,
@@ -74,7 +79,6 @@ namespace Workshare.Mixpanel.NET
 				System.Diagnostics.Trace.WriteLine("Caught mixpanel exception");
 				System.Diagnostics.Trace.WriteLine(ex.ToString());
 #endif
-
 			}
 		}
 
