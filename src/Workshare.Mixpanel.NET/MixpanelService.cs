@@ -16,15 +16,15 @@ namespace Workshare.Mixpanel.NET
 		private IMixpanelOptions _options;
 
 		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options)
-			: this(defaultPropertiesProvider, GetTracker(options))
+			: this(defaultPropertiesProvider, options, GetTracker(options))
 		{
-			_options = options;
 		}
 
-		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IEventTracker eventTracker)
+		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, IEventTracker eventTracker)
 		{
 			_defaultPropertiesProvider = defaultPropertiesProvider;
 			_tracker = eventTracker;
+			_options = options;
 		}
 
 		private static IEventTracker GetTracker(IMixpanelOptions options)
@@ -73,7 +73,7 @@ namespace Workshare.Mixpanel.NET
 					eventProperties[property.Key] = property.Value;
 				}
 
-				if(string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains("User Agent"))
+				if(!string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains("User Agent"))
 				{
 					eventProperties["User Agent"] = _options.UserAgent;
 				}

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mixpanel.NET.specs", "..\Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshare.Mixpanel.NET", "..\Workshare.Mixpanel.NET\Workshare.Mixpanel.NET.csproj", "{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshare.Mixpanel.NET.Tests", "..\Workshare.Mixpanel.NET.Tests\Workshare.Mixpanel.NET.Tests.csproj", "{2B927A81-2BBF-4795-824F-001D722CB866}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
