@@ -29,7 +29,8 @@ namespace Workshare.Mixpanel.NET.Tests
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("User Agent") && string.Equals((string)p["User Agent"], userAgent)
+					p => p.ContainsKey(EventProperties.UserAgent)
+					&& string.Equals((string)p[EventProperties.UserAgent], userAgent)
 					));
 		}
 
@@ -46,13 +47,14 @@ namespace Workshare.Mixpanel.NET.Tests
 			var service = new MixpanelService(provider, options, new Clock(), eventTracker);
 
 			service.SendEvent("testEvent", new Dictionary<string, object> {
-				{ "User Agent", "asdf" }
+				{ EventProperties.UserAgent, "asdf" }
 			});
 
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("User Agent") && string.Equals((string)p["User Agent"], "asdf")
+					p => p.ContainsKey(EventProperties.UserAgent)
+					&& string.Equals((string)p[EventProperties.UserAgent], "asdf")
 					));
 		}
 	}

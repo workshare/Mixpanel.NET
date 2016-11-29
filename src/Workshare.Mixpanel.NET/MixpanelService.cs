@@ -80,14 +80,14 @@ namespace Workshare.Mixpanel.NET
 					eventProperties[property.Key] = property.Value;
 				}
 
-				if (!string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains("User Agent"))
+				if (!string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains(EventProperties.UserAgent))
 				{
-					eventProperties["User Agent"] = _options.UserAgent;
+					eventProperties[EventProperties.UserAgent] = _options.UserAgent;
 				}
 
-				if (_timeProvider != null && !eventProperties.Keys.Contains("DateTime"))
+				if (_timeProvider != null && !eventProperties.Keys.Contains(EventProperties.DateTime))
 				{
-					eventProperties["DateTime"] = _timeProvider.UtcTime.ToString("yyyy-MM-ddTHH:mm:ss");
+					eventProperties[EventProperties.DateTime] = _timeProvider.UtcTime.ToString("yyyy-MM-ddTHH:mm:ss");
 				}
 
 				_tracker.Track(eventName, eventProperties);

@@ -30,7 +30,7 @@ namespace Workshare.Mixpanel.NET.Tests
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("DateTime") && string.Equals((string)p["DateTime"], "2010-12-31T13:59:30")
+					p => p.ContainsKey(EventProperties.DateTime) && string.Equals((string)p[EventProperties.DateTime], "2010-12-31T13:59:30")
 					));
 		}
 
@@ -48,13 +48,14 @@ namespace Workshare.Mixpanel.NET.Tests
 			var service = new MixpanelService(provider, options, timeProvider, eventTracker);
 
 			service.SendEvent("testEvent", new Dictionary<string, object> {
-				{ "DateTime", new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc) }
+				{ EventProperties.DateTime, new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc) }
 			});
 
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("DateTime") && DateTime.Equals((DateTime)p["DateTime"], new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc))
+					p => p.ContainsKey(EventProperties.DateTime) 
+					&& DateTime.Equals((DateTime)p[EventProperties.DateTime], new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc))
 					));
 		}
 	}

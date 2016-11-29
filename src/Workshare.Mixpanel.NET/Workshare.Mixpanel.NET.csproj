@@ -50,6 +50,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Clock.cs" />
+    <Compile Include="Model\EventProperties.cs" />
     <Compile Include="ITimeProvider.cs" />
     <Compile Include="MixpanelOptions.cs" />
     <Compile Include="NullMixpanelTracker.cs" />
