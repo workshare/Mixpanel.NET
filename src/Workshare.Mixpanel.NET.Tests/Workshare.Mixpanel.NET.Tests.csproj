@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeTests.cs" />
+    <Compile Include="MixpanelServiceTests.cs" />
     <Compile Include="UserAgentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

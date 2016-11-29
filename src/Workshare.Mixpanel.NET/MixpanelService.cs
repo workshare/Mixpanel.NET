@@ -74,9 +74,18 @@ namespace Workshare.Mixpanel.NET
 			return SendEventAsync(eventName, new Dictionary<string, object>());
 		}
 
+		public void SendEvent(string eventName, string property, object value)
+		{
+			SendEvent(eventName, new Dictionary<string, object> { { property, value } });
+		}
+
+		public Task SendEventAsync(string eventName, string property, object value)
+		{
+			return SendEventAsync(eventName, new Dictionary<string, object> { { property, value } });
+		}
+
 		public void SendEvent(string eventName, IDictionary<string, object> properties)
 		{
-
 			try
 			{
 				var eventProperties = new Dictionary<string, object>(_defaultPropertiesProvider.Properties);
