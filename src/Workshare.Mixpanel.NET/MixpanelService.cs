@@ -14,22 +14,29 @@ namespace Workshare.Mixpanel.NET
 		private IPropertiesProvider _defaultPropertiesProvider;
 		private IEventTracker _tracker;
 		private IMixpanelOptions _options;
+		private ITimeProvider _timeProvider;
 
 		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options)
-			: this(defaultPropertiesProvider, options, GetTracker(options))
+			: this(defaultPropertiesProvider, options, new Clock(), GetTracker(options))
 		{
 		}
 
-		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, IEventTracker eventTracker)
+		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, ITimeProvider timeProvider)
+			: this(defaultPropertiesProvider, options, timeProvider, GetTracker(options))
+		{
+		}
+
+		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, ITimeProvider timeProvider, IEventTracker eventTracker)
 		{
 			_defaultPropertiesProvider = defaultPropertiesProvider;
 			_tracker = eventTracker;
 			_options = options;
+			_timeProvider = timeProvider;
 		}
 
 		private static IEventTracker GetTracker(IMixpanelOptions options)
 		{
-			if(!options.Enabled)
+			if (!options.Enabled)
 			{
 				return new NullEventTracker();
 			}
@@ -73,9 +80,14 @@ namespace Workshare.Mixpanel.NET
 					eventProperties[property.Key] = property.Value;
 				}
 
-				if(!string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains("User Agent"))
+				if (!string.IsNullOrWhiteSpace(_options.UserAgent) && !eventProperties.Keys.Contains("User Agent"))
 				{
 					eventProperties["User Agent"] = _options.UserAgent;
+				}
+
+				if (_timeProvider != null && !eventProperties.Keys.Contains("DateTime"))
+				{
+					eventProperties["DateTime"] = _timeProvider.UtcTime.ToString("yyyy-MM-ddTHH:mm:ss");
 				}
 
 				_tracker.Track(eventName, eventProperties);

@@ -10,49 +10,51 @@ using System.Threading.Tasks;
 namespace Workshare.Mixpanel.NET.Tests
 {
 	[TestFixture]
-	public class UserAgentTests
+	public class DateTimeTests
 	{
 		[Test]
-		public void UserAgentIsAddedByDefault()
+		public void DateTimeIsAddedByDefault()
 		{
 			var provider = Substitute.For<IPropertiesProvider>();
 			var options = Substitute.For<IMixpanelOptions>();
 			options.Enabled.Returns(true);
 
-			var userAgent = "testAgent";
-			options.UserAgent.Returns(userAgent);
 			var eventTracker = Substitute.For<IEventTracker>();
-			var service = new MixpanelService(provider, options, new Clock(), eventTracker);
+			var timeProvider = Substitute.For<ITimeProvider>();
+			timeProvider.UtcTime.Returns(new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc));
+
+			var service = new MixpanelService(provider, options, timeProvider, eventTracker);
 
 			service.SendEvent("testEvent");
 
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("User Agent") && string.Equals((string)p["User Agent"], userAgent)
+					p => p.ContainsKey("DateTime") && string.Equals((string)p["DateTime"], "2010-12-31T13:59:30")
 					));
 		}
 
 		[Test]
-		public void UserAgentIsNotOverridenIfAlreadySupplied()
+		public void DateTimeIsNotOverridenIfAlreadySupplied()
 		{
 			var provider = Substitute.For<IPropertiesProvider>();
 			var options = Substitute.For<IMixpanelOptions>();
 			options.Enabled.Returns(true);
 
-			var userAgent = "testAgent";
-			options.UserAgent.Returns(userAgent);
 			var eventTracker = Substitute.For<IEventTracker>();
-			var service = new MixpanelService(provider, options, new Clock(), eventTracker);
+			var timeProvider = Substitute.For<ITimeProvider>();
+			timeProvider.UtcTime.Returns(DateTime.UtcNow);
+
+			var service = new MixpanelService(provider, options, timeProvider, eventTracker);
 
 			service.SendEvent("testEvent", new Dictionary<string, object> {
-				{ "User Agent", "asdf" }
+				{ "DateTime", new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc) }
 			});
 
 			eventTracker.Received().Track(
 				Arg.Is("testEvent"),
 				Arg.Is<IDictionary<string, object>>(
-					p => p.ContainsKey("User Agent") && string.Equals((string)p["User Agent"], "asdf")
+					p => p.ContainsKey("DateTime") && DateTime.Equals((DateTime)p["DateTime"], new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc))
 					));
 		}
 	}
