@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Workshare.Mixpanel.NET
 {
-	public interface ITimeProvider
+	internal interface ITimeProvider
 	{
 		DateTime UtcTime { get; }
 	}
