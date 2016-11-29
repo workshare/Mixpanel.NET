@@ -50,6 +50,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Clock.cs" />
+    <Compile Include="NullPropertiesProvider.cs" />
     <Compile Include="Model\EventProperties.cs" />
     <Compile Include="ITimeProvider.cs" />
     <Compile Include="MixpanelOptions.cs" />
@@ -75,6 +76,7 @@
     </None>
     <None Include="Workshare.Mixpanel.NET.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,11 +1,8 @@
 ﻿using Mixpanel.NET.Events;
 using NSubstitute;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Workshare.Mixpanel.NET.Model;
 
 namespace Workshare.Mixpanel.NET.Tests
 {
@@ -22,7 +19,7 @@ namespace Workshare.Mixpanel.NET.Tests
 			var userAgent = "testAgent";
 			options.UserAgent.Returns(userAgent);
 			var eventTracker = Substitute.For<IEventTracker>();
-			var service = new MixpanelService(provider, options, new Clock(), eventTracker);
+			var service = new MixpanelService(options, provider, new Clock(), eventTracker);
 
 			service.SendEvent("testEvent");
 
@@ -44,7 +41,7 @@ namespace Workshare.Mixpanel.NET.Tests
 			var userAgent = "testAgent";
 			options.UserAgent.Returns(userAgent);
 			var eventTracker = Substitute.For<IEventTracker>();
-			var service = new MixpanelService(provider, options, new Clock(), eventTracker);
+			var service = new MixpanelService(options, provider, new Clock(), eventTracker);
 
 			service.SendEvent("testEvent", new Dictionary<string, object> {
 				{ EventProperties.UserAgent, "asdf" }

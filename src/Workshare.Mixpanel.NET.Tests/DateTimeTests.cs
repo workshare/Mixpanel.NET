@@ -3,9 +3,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Workshare.Mixpanel.NET.Model;
 
 namespace Workshare.Mixpanel.NET.Tests
 {
@@ -23,7 +21,7 @@ namespace Workshare.Mixpanel.NET.Tests
 			var timeProvider = Substitute.For<ITimeProvider>();
 			timeProvider.UtcTime.Returns(new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc));
 
-			var service = new MixpanelService(provider, options, timeProvider, eventTracker);
+			var service = new MixpanelService(options, provider, timeProvider, eventTracker);
 
 			service.SendEvent("testEvent");
 
@@ -45,7 +43,7 @@ namespace Workshare.Mixpanel.NET.Tests
 			var timeProvider = Substitute.For<ITimeProvider>();
 			timeProvider.UtcTime.Returns(DateTime.UtcNow);
 
-			var service = new MixpanelService(provider, options, timeProvider, eventTracker);
+			var service = new MixpanelService(options, provider, timeProvider, eventTracker);
 
 			service.SendEvent("testEvent", new Dictionary<string, object> {
 				{ EventProperties.DateTime, new DateTime(2010, 12, 31, 13, 59, 30, DateTimeKind.Utc) }

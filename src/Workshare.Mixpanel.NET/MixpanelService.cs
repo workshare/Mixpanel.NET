@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Workshare.Mixpanel.NET.Model;
 
 namespace Workshare.Mixpanel.NET
 {
@@ -16,17 +17,22 @@ namespace Workshare.Mixpanel.NET
 		private IMixpanelOptions _options;
 		private ITimeProvider _timeProvider;
 
-		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options)
-			: this(defaultPropertiesProvider, options, new Clock(), GetTracker(options))
+		public MixpanelService(IMixpanelOptions options)
+			: this(options, new NullPropertiesProvider())
 		{
 		}
 
-		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, ITimeProvider timeProvider)
-			: this(defaultPropertiesProvider, options, timeProvider, GetTracker(options))
+		public MixpanelService(IMixpanelOptions options, IPropertiesProvider defaultPropertiesProvider)
+			: this(options, defaultPropertiesProvider, new Clock(), GetTracker(options))
 		{
 		}
 
-		public MixpanelService(IPropertiesProvider defaultPropertiesProvider, IMixpanelOptions options, ITimeProvider timeProvider, IEventTracker eventTracker)
+		internal MixpanelService(IMixpanelOptions options, IPropertiesProvider defaultPropertiesProvider, ITimeProvider timeProvider)
+			: this(options, defaultPropertiesProvider, timeProvider, GetTracker(options))
+		{
+		}
+
+		internal MixpanelService(IMixpanelOptions options, IPropertiesProvider defaultPropertiesProvider, ITimeProvider timeProvider, IEventTracker eventTracker)
 		{
 			_defaultPropertiesProvider = defaultPropertiesProvider;
 			_tracker = eventTracker;
