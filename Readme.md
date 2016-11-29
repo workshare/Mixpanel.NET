@@ -1,60 +1,49 @@
-## Mixpanel.NET API Integration for .NET
+## Workshare Mixpanel API Integration for .NET
 
-This project provides basic API integration for using Mixpanel from .NET
-applications.  I'm specifically building it with desktop analytics in mind but
-it should be useful for a wide range of analytics tracking scenarios.
+This project is a Workshare domain specific wrapper around https://github.com/chrisnicola/Mixpanel.NET.
 
-If you have feature suggestions please open a github issue for them.
-
-### Current Features:
-
-* Make basic calls to http://api.mixpanel.com/track and track events
-
-### Planned Features:
-
-* Seperate API wrappers for the Mixpanel data query API
-
-### Usage:
-
-First, I recommend looking at the specs since they pretty clearly demonstrate
-the usage, scenarios and options.  To get started with most of the sensible
-default options first create a new `Tracker`
-
+### Usage
 ```csharp
-var tracker = new Tracker("your API key");
-```
 
-Tracking data can be done one of two ways, first, by sending properties in a
-dictionary.
-
-```csharp
-var properties = new Dictionary<string, object>();
-properties["something"] = "some data";
-properties["something else"] = 5;
-properties["time"] = DateTime.Now;
-tracker.Track("My Event", properties);
-```
-
-Alternatively, you can use a class which will have it's name and properties
-serialzied.
-
-```csharp
-var trackingEvent = new MyEvent {
-  Something = "some data",
-  SomethingElse = 5,
-  Time = DateTime.Now
+// initalise mixpanel settings
+var options = new MixpanelOptions
+{
+	Url = "url to mixpanel proxy, if needed",
+	Token = "mixpanel token", // not your api key,
+	UserAgent = "{client}/{version number}"
 };
-tracker.Track(trackingEvent);
+
+// create a mixpanel service
+var service = new MixpanelService(options);
+
+// create a mixpanel service, supplying default properties for every event
+IPropertiesProvider defaultPropertiesProvider = new YourPropertiesProvider();
+var service = new MixpanelService(options, defaultPropertiesProvider);
+
+// send an event
+service.SendEvent("your event");
+
+// send an event with a single property
+service.SendEvent("your event", Model.EventProperties.Email, "user@asdf.com");
+
+// send an event asynchronously with multiple properties
+await service.SendEventAsync("your event", new Dictionary<string, object>
+{
+	{Model.EventProperties.Email, "user@asdf.com" },
+	{Model.EventProperties.ActionName, "submit" }
+});
+
 ```
+### Service Behavour
 
-Because it is conventional for analytics tracking, all camel-case names are
-split with spaces inserted between words.  This makes the reporting easier to
-understand.
+This library is intended to encourage, but not enforce best practice (I don't have enough data to do this). As such:
 
-If you want to serialize the names literally then you can set that by passing a
-`TrackerOptions` class with `LiteralSerialization = true` in the constructor of
-your `Tracker`.
+* options.UserAgent specifies the user agent that is included in the request header and in the "UserAgent" event property.
+* the "DateTime" property is generated when the event is generated. DateTime is in UTC (your Mixpanel project should be set to UTC accordingly).
+* the system proxy and network credentials are used by default.
 
-### Licence
+If a property is provided external to the library (either as a default property or with the event itself), then the provided values are used.
 
-[Licenced under the Apache 2.0 licence](https://github.com/lucisferre/Mixpanel.NET/blob/master/licence.txt)
+### Best Practice
+
+The EventProperties class provides the list of properties currently used by the Workshare Analytics team. Only these properties are included in data warehousing. If your property is not present, talk to someone on that team to determine if an existing property can be overloaded, or if a new property can be added. See [Mixpanel Events.docx](docs/Mixpanel Events.docx)
