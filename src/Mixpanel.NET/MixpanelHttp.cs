@@ -27,7 +27,7 @@ namespace Mixpanel.NET
     
     public MixpanelHttp(IEnumerable<IHttpWebRequestStrategy> decorators) { 
       if( decorators == null) {
-        decorators = new List<IHttpWebRequestStrategy>();
+        _decorators = new List<IHttpWebRequestStrategy>();
       } else { 
         _decorators = decorators;
       }
