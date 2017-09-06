@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Workshare.Mixpanel.NET.Model;
 
@@ -116,16 +117,17 @@ namespace Workshare.Mixpanel.NET
 			}
 		}
 
-		public Task SendEventAsync(string eventName, IDictionary<string, object> properties)
-		{
-			return Task.Run(() =>
-			{
-				var localEventName = eventName;
-				var localProperties = properties;
+	    public Task SendEventAsync(string eventName, IDictionary<string, object> properties)
+	    {
+	        return Task.Factory.StartNew(() =>
+	            {
+	                var localEventName = eventName;
+	                var localProperties = properties;
 
-				SendEvent(localEventName, localProperties);
-			});
-		}
+	                SendEvent(localEventName, localProperties);
+	            }
+	        );
+	    }
 
 	}
 }
