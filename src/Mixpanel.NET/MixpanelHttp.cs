@@ -34,6 +34,7 @@ namespace Mixpanel.NET
     }
 
     public string Get(string uri, string query) {
+      ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
       var request = WebRequest.Create(uri + "?" + query);
       foreach(var decorator in _decorators) {
         decorator.Decorate((HttpWebRequest)request);
@@ -46,6 +47,7 @@ namespace Mixpanel.NET
     }
 
     public string Post(string uri, string body) {
+      ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
       var request = WebRequest.Create(uri);
       request.Method = "POST";
       request.ContentType = "application/x-www-form-urlencoded";
