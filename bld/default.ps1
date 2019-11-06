@@ -28,7 +28,7 @@ Include EPS.ps1
 
 ### MAIN VERBS ###
 
-Task Default -Depends Package, Test
+Task Default -Depends Compile, Test
 
 Task Equip `
 	-Description "Installs tools required to build and test the project. Assumes chocolatey is installed" `
@@ -63,7 +63,7 @@ Task Test `
 
 
 Task Package `
-	-Depends Compile, Compile-Installers `
+	-Depends Compile-Installers `
 	-Description "Turns executables into artifacts" `
 {    
 }
@@ -140,9 +140,7 @@ Task Compile-Source -Depends Get-Dependencies {
 }
 
 
-Task Compile-Installers `
-	-Depends Compile `
-{	
+Task Compile-Installers -Depends Equip, Clean-Artifacts, Mutate {	
 	mkdir $dir_output -erroraction SilentlyContinue | Out-Null
 	$dir_output_absolute = resolve-path $dir_output
 	pushd .
