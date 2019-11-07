@@ -3,7 +3,7 @@ $global:CreateInstaller = $true
 
 Task Default -Depends Build
 
-Task DefaultWithOutInstaller -Depends NotInstaller, Default
+Task BuildWithOutInstaller -Depends NoInstaller, Default
 
 Task Build `
 	-Description "Build project and run unit test cases and create installer based on condition" `
@@ -19,7 +19,7 @@ Task Build `
 	
 }
 
-Task NotInstaller `
+Task NoInstaller `
 {
 	$global:CreateInstaller = $false
 }

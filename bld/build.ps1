@@ -63,7 +63,7 @@ Task Test `
 
 
 Task Package `
-	-Depends Compile, Compile-Installers `
+	-Depends Compile-Installers `
 	-Description "Turns executables into artifacts" `
 {    
 }
@@ -141,7 +141,7 @@ Task Compile-Source -Depends Get-Dependencies {
 
 
 Task Compile-Installers `
-	-Depends Compile `
+	-Depends Equip, Clean-Artifacts, Mutate `
 {	
 	mkdir $dir_output -erroraction SilentlyContinue | Out-Null
 	$dir_output_absolute = resolve-path $dir_output
