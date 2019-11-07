@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mixpanel.NET", "Mixpanel.NET.csproj", "{352023D1-2498-44E2-B2A8-340FA959FEDE}"
 EndProject
@@ -15,26 +15,47 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Net40|Any CPU = Release-Net40|Any CPU
+		Release-Net452|Any CPU = Release-Net452|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release-Net452|Any CPU.ActiveCfg = Release-Net452|Any CPU
+		{352023D1-2498-44E2-B2A8-340FA959FEDE}.Release-Net452|Any CPU.Build.0 = Release-Net452|Any CPU
 		{08422141-78C4-405A-81C5-926A914B8B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08422141-78C4-405A-81C5-926A914B8B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08422141-78C4-405A-81C5-926A914B8B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08422141-78C4-405A-81C5-926A914B8B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08422141-78C4-405A-81C5-926A914B8B40}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{08422141-78C4-405A-81C5-926A914B8B40}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{08422141-78C4-405A-81C5-926A914B8B40}.Release-Net452|Any CPU.ActiveCfg = Release-Net452|Any CPU
+		{08422141-78C4-405A-81C5-926A914B8B40}.Release-Net452|Any CPU.Build.0 = Release-Net452|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release-Net452|Any CPU.ActiveCfg = Release-Net452|Any CPU
+		{F8C2DA9D-7C44-4268-8E79-82DA214D9F3E}.Release-Net452|Any CPU.Build.0 = Release-Net452|Any CPU
 		{2B927A81-2BBF-4795-824F-001D722CB866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B927A81-2BBF-4795-824F-001D722CB866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B927A81-2BBF-4795-824F-001D722CB866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B927A81-2BBF-4795-824F-001D722CB866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release-Net452|Any CPU.ActiveCfg = Release-Net452|Any CPU
+		{2B927A81-2BBF-4795-824F-001D722CB866}.Release-Net452|Any CPU.Build.0 = Release-Net452|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD142C55-BB88-4CAE-80FF-7BC7ACF861F7}
 	EndGlobalSection
 EndGlobal
