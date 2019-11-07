@@ -36,7 +36,7 @@ namespace Mixpanel.NET
     public string Get(string uri, string query) {
 
 #if BUILD_FOR_PLATFORM_NET40
-     ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls;
+     //Do nothing
 #elif BUILD_FOR_PLATFORM_NET452
      ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
 #else
@@ -57,7 +57,7 @@ namespace Mixpanel.NET
     public string Post(string uri, string body) {
 
 #if BUILD_FOR_PLATFORM_NET40
-     ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls;
+     //Do nothing
 #elif BUILD_FOR_PLATFORM_NET452
      ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
 #else
