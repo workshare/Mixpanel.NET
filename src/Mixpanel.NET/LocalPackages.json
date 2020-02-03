@@ -1,0 +1,19 @@
+[
+  {
+    "Id": "Mixpanel.NET",
+    "Version": "0.2.0",
+    "Author": "Chris Nicola",
+    "Owner": "Chris Nicola",
+    "ProjectUrl": "https://github.com/chrisnicola/Mixpanel.NET",
+    "Description": "Provides API hooks for the Mixpanel API",
+    "Summary": "Provides API hooks for the Mixpanel API",
+    "LicenseUrl": "https://github.com/chrisnicola/Mixpanel.NET/blob/master/licence.txt",
+    "CopyRight": "Copyright 2011 Chris Nicola",
+    "PackageType": "Other",
+	"FileType": "Both",
+    "LicenseType": "Apache",
+    "LicensePath": "LicenseFiles\\ApacheLicense.txt",
+    "IsContainsOtherPackages": "false",
+    "InstalledPackageFilePath": ""
+  }
+]

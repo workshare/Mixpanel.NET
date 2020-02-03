@@ -17,5 +17,9 @@
       <file target="lib\net47" src="bin\$configuration$\*.dll"/>
 	  <file target="lib\net452" src="bin\$configuration$-Net452\*.dll"/>
 	  <file target="lib\net40" src="bin\$configuration$-Net40\*.dll"/>
+	  <file target="\Acknowledgments.txt" src="Acknowledgments.txt" />
+	  <file target="\Third-Party License Agreements.txt" src="Third-Party License Agreements.txt" />
+	  <file target="\InstalledPackages.json" src="InstalledPackages.json" />
+	  <file target="\EULA.pdf" src="EULA.pdf" />
     </files>
 </package>
