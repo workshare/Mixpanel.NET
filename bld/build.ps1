@@ -141,7 +141,7 @@ Task Compile-Source -Depends Get-Dependencies {
 
 
 Task Compile-Installers `
-	-Depends Equip, Clean-Artifacts, Mutate `
+	-Depends Equip, Clean-Artifacts, Mutate, Run-Agreement-Tool `
 {	
 	mkdir $dir_output -erroraction SilentlyContinue | Out-Null
 	$dir_output_absolute = resolve-path $dir_output
@@ -153,6 +153,18 @@ Task Compile-Installers `
 	popd
 }
 
+Task Run-Agreement-Tool {
+	$script:dotnetExe = (get-command dotnet).Source
+	Write-Host "Found dotnet here: $dotnetExe"
+	pushd .
+	cd "$dir_source\Workshare.Mixpanel.NET"
+	Exec {
+		&nuget install Litera.Agreements.Generator -o . -excludeversion
+		&$dotnetExe Litera.Agreements.Generator\tools\Litera.Agreements.Generator.dll -p "Mixpanel.NET" -d "..\Mixpanel.NET" -o .
+	}
+	
+	popd
+}
 
 Task Get-Dependencies {
 	& nuget restore $solution
