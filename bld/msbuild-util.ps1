@@ -23,6 +23,7 @@ function Build-Project
     )   
 
     tskill nunit-agent
+    Stop-Process -name nunit-agent -ErrorAction Continue
 
     $extraArgs = @()
 
