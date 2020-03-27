@@ -22,7 +22,6 @@ function Build-Project
         [array] $buildProperties
     )   
 
-    tskill nunit-agent
     Stop-Process -name nunit-agent -ErrorAction Continue
 
     $extraArgs = @()
