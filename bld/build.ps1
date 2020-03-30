@@ -159,6 +159,7 @@ Task Run-Agreement-Tool {
 	pushd .
 	cd "$dir_source\Workshare.Mixpanel.NET"
 	Exec {
+		AddMsBuildPathIfNecessary
 		&nuget install Litera.Agreements.Generator -o . -excludeversion
 		&$dotnetExe Litera.Agreements.Generator\tools\Litera.Agreements.Generator.dll -p "Mixpanel.NET" -d "..\Mixpanel.NET" -o .
 	}
@@ -167,6 +168,7 @@ Task Run-Agreement-Tool {
 }
 
 Task Get-Dependencies {
+	AddMsBuildPathIfNecessary
 	& nuget restore $solution
 }
 

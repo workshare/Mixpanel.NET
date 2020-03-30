@@ -1,6 +1,18 @@
 
 ### MSBUILD FUNCTIONS ####
 
+function Get-MsBuildPath {
+
+    $msbuildPath = vswhere -latest -property installationPath
+    if($msbuildPath.Contains("2019")){
+        $msbuildPath = Join-Path $msbuildPath "MSBuild\Current\Bin\"
+    }
+    else {
+        $msbuildPath = Join-Path $msbuildPath "MSBuild\15.0\Bin\"
+    }
+    return $msbuildPath
+}
+ 
 function Get-MsBuildExe {
 
     $msbuild = vswhere -latest -property installationPath
@@ -11,6 +23,17 @@ function Get-MsBuildExe {
         $msbuild = Join-Path $msbuild "MSBuild\15.0\Bin\msbuild.exe"
     }
     return $msbuild
+}
+
+function AddMsBuildPathIfNecessary {
+	
+	$msbuildPath = Get-MsBuildPath
+
+	if (!$env:PATH.StartsWith($msbuildPath))
+	{
+		Write-Output "Adding msbuild path to the beginning of path"
+		$env:PATH = "$msbuildPath;$env:PATH"
+	}
 }
 
 function Clean-Solution
