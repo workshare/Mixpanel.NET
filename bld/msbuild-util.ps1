@@ -1,7 +1,40 @@
 
 ### MSBUILD FUNCTIONS ####
 
-$msbuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\msbuild.exe"
+function Get-MsBuildPath {
+
+    $msbuildPath = vswhere -latest -property installationPath
+    if($msbuildPath.Contains("2019")){
+        $msbuildPath = Join-Path $msbuildPath "MSBuild\Current\Bin\"
+    }
+    else {
+        $msbuildPath = Join-Path $msbuildPath "MSBuild\15.0\Bin\"
+    }
+    return $msbuildPath
+}
+ 
+function Get-MsBuildExe {
+
+    $msbuild = vswhere -latest -property installationPath
+    if($msbuild.Contains("2019")){
+        $msbuild = Join-Path $msbuild "MSBuild\Current\Bin\msbuild.exe"
+    }
+    else {
+        $msbuild = Join-Path $msbuild "MSBuild\15.0\Bin\msbuild.exe"
+    }
+    return $msbuild
+}
+
+function AddMsBuildPathIfNecessary {
+	
+	$msbuildPath = Get-MsBuildPath
+
+	if (!$env:PATH.StartsWith($msbuildPath))
+	{
+		Write-Output "Adding msbuild path to the beginning of path"
+		$env:PATH = "$msbuildPath;$env:PATH"
+	}
+}
 
 function Clean-Solution
 {
@@ -9,6 +42,7 @@ function Clean-Solution
         [string] $solutionPath,
         [string] $configuration
     )   
+    $msbuildExe = Get-MsBuildExe
     Exec { &$msbuildExe $solutionPath /t:Clean /nr:false /clp:ErrorsOnly /m /p:Configuration="$configuration" /nologo }
 }
 
@@ -22,7 +56,7 @@ function Build-Project
         [array] $buildProperties
     )   
 
-    tskill nunit-agent
+    Stop-Process -name nunit-agent -ErrorAction Continue
 
     $extraArgs = @()
 
@@ -31,7 +65,6 @@ function Build-Project
         $extraArgs += $param
     }
     
-    Exec { 
-        &$msbuildExe $path /t:Build /clp:ErrorsOnly /nr:false /p:Platform="$platform" /m /p:Configuration="$configuration" $extraArgs /nologo
-    }
+    $msbuildExe = Get-MsBuildExe
+    Exec { &$msbuildExe $path /t:Build /clp:ErrorsOnly /nr:false /p:Platform="$platform" /m /p:Configuration="$configuration" $extraArgs /nologo }
 }
